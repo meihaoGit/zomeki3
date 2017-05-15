@@ -15,6 +15,15 @@ module Sys::Model::Scope
         search_with_text(*args)
       end
     }
+    scope :date_column_before, ->(column, date) {
+      where(arel_table[column].lteq(date))
+    }
+    scope :date_column_after, ->(column, date) {
+      where(arel_table[column].gteq(date))
+    }
+    scope :date_column_between, ->(column, date1, date2) {
+      where(arel_table[column].in(date1..date2))
+    }
   end
 
   module ClassMethods
